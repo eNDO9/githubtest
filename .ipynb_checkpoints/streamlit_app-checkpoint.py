@@ -1,11 +1,11 @@
 import streamlit as st
+import pandas as pd
+import pandas_profiling
+from streamlit_pandas_profiling import st_profile_report
 
-st.header('st.multiselect')
+st.header('`streamlit_pandas_profiling`')
 
-options = st.multiselect(
-     'What are your favorite colors',
-     ['Green', 'Yellow', 'Red', 'Blue'],
-     ['Yellow', 'Red'])
+df = pd.read_csv('https://raw.githubusercontent.com/dataprofessor/data/master/penguins_cleaned.csv')
 
-if options:
-    st.write('You selected:', options)
+pr = df.profile_report()
+st_profile_report(pr)
