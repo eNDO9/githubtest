@@ -1,11 +1,16 @@
 import streamlit as st
 import pandas as pd
-#import ydata_profiling as pandas_profiling
-from streamlit_pandas_profiling import st_profile_report
 
-st.header('`streamlit_pandas_profiling`')
+st.title('st.file_uploader')
 
-df = pd.read_csv('https://raw.githubusercontent.com/dataprofessor/data/master/penguins_cleaned.csv')
+st.subheader('Input CSV')
+uploaded_file = st.file_uploader("Choose a file")
 
-pr = df.profile_report()
-st_profile_report(pr)
+if uploaded_file is not None:
+  df = pd.read_csv(uploaded_file)
+  st.subheader('DataFrame')
+  st.write(df)
+  st.subheader('Descriptive Statistics')
+  st.write(df.describe())
+else:
+  st.info('☝️ Upload a CSV file')
