@@ -11,7 +11,7 @@ st.write('Hello, *World!* :sunglasses:')
 
 # Example 2
 
-st.write(123456789)
+st.write(34987507923457093247509823978045)
 
 # Example 3
 
