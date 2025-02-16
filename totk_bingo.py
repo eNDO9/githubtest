@@ -48,13 +48,14 @@ html_code = """
         user-select: none;
         background-color: white;
         color: black;
+        transition: background-color 0.3s ease;
     }
     .bingo-cell.x-mark {
-        background-color: red;
+        background-color: red !important;
         color: white;
     }
     .bingo-cell.o-mark {
-        background-color: blue;
+        background-color: blue !important;
         color: white;
     }
 </style>
