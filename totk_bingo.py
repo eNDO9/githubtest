@@ -21,7 +21,7 @@ else:
         "Increase stamina", "Upgrade 3 clothing items", "Find 4 lightroots", "Find 8 lightroots", "Discover 3 towers", "Discover 5 towers", 
         "Complete 4 sky shrines", "Collect an entire item set", "Give Beedle a beetle", "Bake a Bread", "Cook a Monster Meal", 
         "Defeat the hands", "Defeat a hinox", "Defeat 3 hinoxes", "Defeat a flux construct", "Defeat a Frox", "Experience low gravity", 
-        "Fix 15 signs", "Defeat Kohga 2 Times", "Take a photo of a defeated lynel", "Send a korok to space", "Create 3 unique elixirs", "Defeat a talus"
+        "Fix 15 signs", "Defeat Kohga 2 Times", "Take a photo of a defeated lynel", "Send a korok to space", "Create 3 unique elixirs"
     ]
 
 # Define categories for similar challenges to prevent duplicates based on numbers
@@ -112,6 +112,17 @@ for i in range(5):
 
 # Reset button
 def reset_board():
+    random.shuffle(all_challenges)
+    selected_challenges = []
+    for category in categories.values():
+        selected_challenges.append(random.choice(category))
+    remaining_challenges = list(set(all_challenges) - set(sum(categories.values(), [])))
+    random.shuffle(remaining_challenges)
+    while len(selected_challenges) < 25:
+        selected_challenges.append(remaining_challenges.pop())
+    random.shuffle(selected_challenges)
+    st.session_state.bingo_card = selected_challenges
+    st.session_state.bingo_card[12] = "Free Space"  # Keep Free Space in center
     st.session_state.bingo_grid = [[False for _ in range(5)] for _ in range(5)]
     st.session_state.bingo_grid[2][2] = True  # Keep Free Space lit up
     st.rerun()
