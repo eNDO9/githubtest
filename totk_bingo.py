@@ -24,8 +24,6 @@ if "bingo_grid" not in st.session_state:
 def update_cell(i, j):
     if st.session_state.bingo_grid[i][j] == "":
         st.session_state.bingo_grid[i][j] = "X"
-    elif st.session_state.bingo_grid[i][j] == "X":
-        st.session_state.bingo_grid[i][j] = "O"
     else:
         st.session_state.bingo_grid[i][j] = ""
 
@@ -51,13 +49,9 @@ st.markdown("""
         border-radius: 0px;
         border: 1px solid black;
     }
-    .red-button {
-        background-color: red !important;
-        color: white !important;
-    }
-    .blue-button {
-        background-color: blue !important;
-        color: white !important;
+    .highlight-button {
+        background-color: yellow !important;
+        color: black !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -69,12 +63,10 @@ for i in range(5):
         key = f"cell_{i}_{j}"
         button_color_class = ""
         if st.session_state.bingo_grid[i][j] == "X":
-            button_color_class = "red-button"
-        elif st.session_state.bingo_grid[i][j] == "O":
-            button_color_class = "blue-button"
+            button_color_class = "highlight-button"
         
         with cols[j]:
-            st.markdown(f'<style>div[data-testid="stButton-{key}"] button {{background-color: {"red" if button_color_class == "red-button" else ("blue" if button_color_class == "blue-button" else "white")} !important;}}</style>', unsafe_allow_html=True)
+            st.markdown(f'<style>div[data-testid="stButton-{key}"] button {{background-color: {"yellow" if button_color_class == "highlight-button" else "white"} !important;}}</style>', unsafe_allow_html=True)
             if st.button(word, key=key, on_click=update_cell, args=(i, j)):
                 pass
 
