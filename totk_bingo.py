@@ -61,8 +61,6 @@ if "bingo_card" not in st.session_state:
     st.session_state.bingo_card = selected_challenges
 
 bingo_card = st.session_state.bingo_card
-bingo_card[12] = "Free Space"  # Ensure only one Free Space in the center
-bingo_card[12] = "Free Space"  # Set center square
 
 # Initialize session state for the bingo grid
 if "bingo_grid" not in st.session_state:
@@ -127,9 +125,7 @@ def reset_board():
         selected_challenges.append(remaining_challenges.pop())
     random.shuffle(selected_challenges)
     st.session_state.bingo_card = selected_challenges
-    st.session_state.bingo_card[12] = "Free Space"  # Keep Free Space in center
     st.session_state.bingo_grid = [[False for _ in range(5)] for _ in range(5)]
-    st.session_state.bingo_grid[2][2] = True  # Keep Free Space lit up
     st.rerun()
 
 st.markdown("<br>", unsafe_allow_html=True)
