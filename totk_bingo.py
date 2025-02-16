@@ -14,7 +14,7 @@ else:
         "Take pictures of 10 different monsters", "Take pictures of 20 different monsters", 
         "Defeat an enemy using only Zonai tech", "Increase hearts", "Catch 5 different fish", "Catch 10 different fish", 
         "Defeat an enemy while on horseback", "Defeat 5 enemies while on horseback", "Defeat 10 enemies while on horseback", 
-        "Build a motorcycle", "Build a car", "Find a sages will", "Break five weapons", "Break 10 weapons", "Free!", 
+        "Build a motorcycle", "Build a car", "Find a sages will", "Break five weapons", "Break 10 weapons",
         "Defeat a Boss Bokoblin parade", "Ride a dragon", "Clear an enemy camp naked", "Defeat a Lynel", "Defeat 3 Lynels", 
         "Complete a Colosseum", "Complete 3 Colosseums", "Cook a pizza", "Cook an omelette", "Get arrested in Gerudo town", 
         "Reunite a Korok with its friend", "Reunite 3 Koroks with their friends", "Register a horse", "Ride a non-horse", 
@@ -60,7 +60,7 @@ if "bingo_card" not in st.session_state:
     st.session_state.bingo_card = selected_challenges
 
 bingo_card = st.session_state.bingo_card
-bingo_card[12] = "Free Space"  # Set center square
+bingo_card[12] = "Free!"  # Set center square
 
 # Initialize session state for the bingo grid
 if "bingo_grid" not in st.session_state:
@@ -125,7 +125,7 @@ def reset_board():
         selected_challenges.append(remaining_challenges.pop())
     random.shuffle(selected_challenges)
     st.session_state.bingo_card = selected_challenges
-    st.session_state.bingo_card[12] = "Free Space"  # Keep Free Space in center
+    st.session_state.bingo_card[12] = "Free!"  # Keep Free Space in center
     st.session_state.bingo_grid = [[False for _ in range(5)] for _ in range(5)]
     st.session_state.bingo_grid[2][2] = True  # Keep Free Space lit up
     st.rerun()
