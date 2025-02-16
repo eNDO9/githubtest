@@ -32,7 +32,7 @@ def update_cell(i, j):
 # Title
 st.title("Interactive Bingo Game")
 
-# Apply dark mode styling
+# Apply dark mode styling with dark buttons
 st.markdown("""
 <style>
     body, .stApp {
@@ -54,6 +54,8 @@ st.markdown("""
         padding: 0px !important;
         border-radius: 0px;
         border: 1px solid white;
+        background-color: #333;
+        color: white;
     }
     .x-mark {
         background-color: red !important;
@@ -71,22 +73,24 @@ for i in range(5):
     for j in range(5):
         word = bingo_card[i * 5 + j]
         key = f"cell_{i}_{j}"
-        button_class = ""
+        button_color = "#333"  # Default dark mode button
         if st.session_state.bingo_grid[i][j] == "X":
-            button_class = "x-mark"
+            button_color = "red"
         elif st.session_state.bingo_grid[i][j] == "O":
-            button_class = "o-mark"
+            button_color = "blue"
         
         with cols[j]:
-            if st.button(word, key=key, on_click=update_cell, args=(i, j)):
-                pass
-            st.markdown(f"""
+            st.markdown(
+                f"""
                 <style>
                 div[data-testid="stButton"]:has(button#{key}) button {{
-                    background-color: {"red" if st.session_state.bingo_grid[i][j] == "X" else ("blue" if st.session_state.bingo_grid[i][j] == "O" else "#333")} !important;
+                    background-color: {button_color} !important;
                 }}
                 </style>
-            """, unsafe_allow_html=True)
+                """, unsafe_allow_html=True
+            )
+            if st.button(word, key=key, on_click=update_cell, args=(i, j)):
+                pass
 
 # Reset button
 def reset_board():
