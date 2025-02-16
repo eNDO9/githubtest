@@ -61,7 +61,7 @@ Send a korok to space
 Create 3 unique elixirs
 Clear monster camp naked
 Discover 2 hot springs
-Acquire weapon with at least 70 attack power
+Get weapon with 70 or more power
 Collect 5 bubbul gems
 Collect 50 poes
 Unlock 3 schema stones
