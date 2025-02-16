@@ -41,15 +41,14 @@ html = """
         user-select: none;
         position: relative;
     }
-    .bingo-cell.x-mark::after {
-        content: 'X';
-        color: red;
-        font-size: 50px;
-        font-weight: bold;
+    .bingo-cell .x-overlay {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        font-size: 50px;
+        color: red;
+        font-weight: bold;
         opacity: 0.7;
     }
 </style>
@@ -58,7 +57,7 @@ html = """
 """
 
 for i, word in enumerate(bingo_card):
-    html += f"<div class='bingo-cell' id='cell{i}' onclick='toggleCell({i})'>{word}</div>"
+    html += f"<div class='bingo-cell' id='cell{i}' onclick='toggleCell({i})'><span class='word'>{word}</span><span class='x-overlay' style='display:none;'>X</span></div>"
 
 html += """
 </div>
@@ -66,10 +65,12 @@ html += """
 <script>
     function toggleCell(index) {
         let cell = document.getElementById('cell' + index);
-        if (cell.classList.contains('x-mark')) {
-            cell.classList.remove('x-mark');
+        let xOverlay = cell.querySelector('.x-overlay');
+        
+        if (xOverlay.style.display === 'none') {
+            xOverlay.style.display = 'block';
         } else {
-            cell.classList.add('x-mark');
+            xOverlay.style.display = 'none';
         }
     }
 </script>
