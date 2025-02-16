@@ -32,7 +32,7 @@ def update_cell(i, j):
 # Title
 st.title("Interactive Bingo Game")
 
-# Apply light mode styling with full button color change
+# Apply light mode styling with proper button color updates
 st.markdown("""
 <style>
     body, .stApp {
@@ -70,17 +70,11 @@ for i in range(5):
             button_color = "blue"
         
         with cols[j]:
-            btn = st.button(word, key=key, on_click=update_cell, args=(i, j), use_container_width=True)
-            if btn:
-                st.session_state.bingo_grid[i][j] = "X" if st.session_state.bingo_grid[i][j] == "" else ("O" if st.session_state.bingo_grid[i][j] == "X" else "")
-            st.markdown(
+            button = st.markdown(
                 f"""
-                <style>
-                div[data-testid="stButton"]:nth-of-type({i * 5 + j + 1}) button {{
-                    background-color: {button_color} !important;
-                    color: white !important;
-                }}
-                </style>
+                <button id='{key}' style='width:100%; height:100px; background-color:{button_color}; color:black; font-size:16px; border:1px solid black;' onclick='fetch("/{key}")'>
+                    {word}
+                </button>
                 """, unsafe_allow_html=True
             )
 
