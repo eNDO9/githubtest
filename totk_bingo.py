@@ -39,6 +39,18 @@ html = """
         border: 1px solid black;
         cursor: pointer;
         user-select: none;
+        position: relative;
+    }
+    .bingo-cell.x-mark::after {
+        content: 'X';
+        color: red;
+        font-size: 50px;
+        font-weight: bold;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0.7;
     }
 </style>
 
@@ -54,12 +66,10 @@ html += """
 <script>
     function toggleCell(index) {
         let cell = document.getElementById('cell' + index);
-        if (cell.innerHTML.includes('(X)')) {
-            cell.innerHTML = cell.innerHTML.replace('(X)', '(O)');
-        } else if (cell.innerHTML.includes('(O)')) {
-            cell.innerHTML = cell.innerHTML.replace('(O)', '');
+        if (cell.classList.contains('x-mark')) {
+            cell.classList.remove('x-mark');
         } else {
-            cell.innerHTML += ' (X)';
+            cell.classList.add('x-mark');
         }
     }
 </script>
