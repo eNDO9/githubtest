@@ -72,7 +72,7 @@ for i in range(5):
         elif st.session_state.bingo_grid[i][j] == "O":
             mark_class = "o-mark"
         
-        html_code += f'<div id="{cell_id}" class="bingo-cell {mark_class}" onclick="toggleMark('{cell_id}')">{word}</div>'
+        html_code += f'<div id="{cell_id}" class="bingo-cell {mark_class}" onclick="toggleMark(\"{cell_id}\")">{word}</div>'
 
 html_code += """
 </div>
