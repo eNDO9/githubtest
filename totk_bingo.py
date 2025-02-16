@@ -36,6 +36,7 @@ st.markdown("""
         display: flex;
         justify-content: center;
         padding: 0px;
+        margin: 0px;
     }
     .stButton>button {
         width: 100px;
@@ -43,12 +44,14 @@ st.markdown("""
         font-size: 16px;
         margin: 0px;
         padding: 0px;
+        border-radius: 0px;
+        border: 1px solid black;
     }
 </style>
 """, unsafe_allow_html=True)
 
 for i in range(5):
-    cols = st.columns(5, gap="small")
+    cols = st.columns(5, gap="zero")
     for j in range(5):
         word = bingo_card[i * 5 + j]
         key = f"cell_{i}_{j}"
