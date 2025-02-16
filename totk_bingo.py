@@ -21,7 +21,7 @@ else:
         "Increase stamina", "Upgrade 3 clothing items", "Find 4 lightroots", "Find 8 lightroots", "Discover 3 towers", "Discover 5 towers", 
         "Complete 4 sky shrines", "Collect an entire item set", "Give Beedle a beetle", "Bake a Bread", "Cook a Monster Meal", 
         "Defeat the hands", "Defeat a hinox", "Defeat 3 hinoxes", "Defeat a flux construct", "Defeat a Frox", "Experience low gravity", 
-        "Fix 15 signs", "Defeat Kohga 2 Times", "Take a photo of a defeated lynel", "Send a korok to space", "Create 3 unique elixirs"
+        "Fix 15 signs", "Defeat Kohga 2 Times", "Take a photo of a defeated lynel", "Send a korok to space", "Create 3 unique elixirs", "Defeat a talus"
     ]
 
 # Define categories for similar challenges to prevent duplicates based on numbers
