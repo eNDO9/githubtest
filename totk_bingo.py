@@ -18,6 +18,14 @@ bingo_card = words[:25]
 if "bingo_grid" not in st.session_state:
     st.session_state.bingo_grid = [["" for _ in range(5)] for _ in range(5)]
 
+def update_cell(i, j):
+    if st.session_state.bingo_grid[i][j] == "":
+        st.session_state.bingo_grid[i][j] = "X"
+    elif st.session_state.bingo_grid[i][j] == "X":
+        st.session_state.bingo_grid[i][j] = "O"
+    else:
+        st.session_state.bingo_grid[i][j] = ""
+
 # Title
 st.title("Interactive Bingo Game")
 
@@ -27,21 +35,11 @@ for i in range(5):
     for j in range(5):
         word = bingo_card[i * 5 + j]
         key = f"cell_{i}_{j}"
-        
-        # Button logic
-        if key not in st.session_state:
-            st.session_state[key] = ""  # Default empty
-        
-        if cols[j].button(f"{word}\n({st.session_state[key]})", key=key):
-            if st.session_state[key] == "":
-                st.session_state[key] = "X"
-            elif st.session_state[key] == "X":
-                st.session_state[key] = "O"
-            else:
-                st.session_state[key] = ""  # Reset
+        cols[j].button(f"{word}\n({st.session_state.bingo_grid[i][j]})", key=key, on_click=update_cell, args=(i, j))
 
 # Reset button
+def reset_board():
+    st.session_state.bingo_grid = [["" for _ in range(5)] for _ in range(5)]
+
 if st.button("Reset Board"):
-    for i in range(5):
-        for j in range(5):
-            st.session_state[f"cell_{i}_{j}"] = ""
+    reset_board()
