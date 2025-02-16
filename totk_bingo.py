@@ -51,7 +51,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 for i in range(5):
-    cols = st.columns(5, gap="zero")
+    cols = st.columns(5, gap="small")
     for j in range(5):
         word = bingo_card[i * 5 + j]
         key = f"cell_{i}_{j}"
