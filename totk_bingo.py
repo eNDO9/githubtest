@@ -29,17 +29,37 @@ def update_cell(i, j):
 # Title
 st.title("Interactive Bingo Game")
 
-# Bingo grid display
+# Bingo grid display with a proper board layout
+st.markdown("""
+<style>
+    div[data-testid="column"] {
+        display: flex;
+        justify-content: center;
+    }
+    .stButton>button {
+        width: 100px;
+        height: 100px;
+        font-size: 16px;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 for i in range(5):
     cols = st.columns(5)
     for j in range(5):
         word = bingo_card[i * 5 + j]
         key = f"cell_{i}_{j}"
-        cols[j].button(f"{word}\n({st.session_state.bingo_grid[i][j]})", key=key, on_click=update_cell, args=(i, j))
+        cols[j].button(
+            f"{word}\n({st.session_state.bingo_grid[i][j]})", 
+            key=key, 
+            on_click=update_cell, 
+            args=(i, j)
+        )
 
 # Reset button
 def reset_board():
     st.session_state.bingo_grid = [["" for _ in range(5)] for _ in range(5)]
 
+st.markdown("<br>", unsafe_allow_html=True)
 if st.button("Reset Board"):
     reset_board()
