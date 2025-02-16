@@ -25,7 +25,7 @@ if "bingo_grid" not in st.session_state:
 st.title("Interactive Bingo Game")
 
 # CSS + JavaScript for a dynamic, non-resetting grid
-st.markdown("""
+html_code = """
 <style>
     .bingo-grid {
         display: grid;
@@ -61,7 +61,6 @@ st.markdown("""
 
 <div class="bingo-grid">
 """
-)
 
 for i in range(5):
     for j in range(5):
@@ -73,12 +72,9 @@ for i in range(5):
         elif st.session_state.bingo_grid[i][j] == "O":
             mark_class = "o-mark"
         
-        st.markdown(
-            f'<div id="{cell_id}" class="bingo-cell {mark_class}" onclick="toggleMark(\'{cell_id}\')">{word}</div>',
-            unsafe_allow_html=True
-        )
+        html_code += f'<div id="{cell_id}" class="bingo-cell {mark_class}" onclick="toggleMark('{cell_id}')">{word}</div>'
 
-st.markdown("""
+html_code += """
 </div>
 
 <script>
@@ -94,7 +90,9 @@ st.markdown("""
         }
     }
 </script>
-""", unsafe_allow_html=True)
+"""
+
+st.markdown(html_code, unsafe_allow_html=True)
 
 # Reset button
 def reset_board():
