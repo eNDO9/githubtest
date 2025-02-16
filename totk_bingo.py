@@ -29,21 +29,22 @@ def update_cell(i, j):
 # Title
 st.title("Interactive Bingo Game")
 
-# Bingo grid display with a proper board layout
+# Bingo grid display with reduced gaps
 st.markdown("""
 <style>
     div[data-testid="column"] {
         display: flex;
         justify-content: center;
-        padding: 0px;
-        margin: 0px;
+        padding: 0px !important;
+        margin: 0px !important;
+        flex-grow: 1;
     }
     .stButton>button {
-        width: 100px;
+        width: 100%;
         height: 100px;
         font-size: 16px;
-        margin: 0px;
-        padding: 0px;
+        margin: 0px !important;
+        padding: 0px !important;
         border-radius: 0px;
         border: 1px solid black;
     }
@@ -51,16 +52,17 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 for i in range(5):
-    cols = st.columns(5, gap="small")
+    cols = st.columns(5)
     for j in range(5):
         word = bingo_card[i * 5 + j]
         key = f"cell_{i}_{j}"
-        cols[j].button(
-            f"{word}\n({st.session_state.bingo_grid[i][j]})", 
-            key=key, 
-            on_click=update_cell, 
-            args=(i, j)
-        )
+        with cols[j]:
+            st.button(
+                f"{word}\n({st.session_state.bingo_grid[i][j]})", 
+                key=key, 
+                on_click=update_cell, 
+                args=(i, j)
+            )
 
 # Reset button
 def reset_board():
