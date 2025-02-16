@@ -35,17 +35,20 @@ st.markdown("""
     div[data-testid="column"] {
         display: flex;
         justify-content: center;
+        padding: 0px;
     }
     .stButton>button {
         width: 100px;
         height: 100px;
         font-size: 16px;
+        margin: 0px;
+        padding: 0px;
     }
 </style>
 """, unsafe_allow_html=True)
 
 for i in range(5):
-    cols = st.columns(5)
+    cols = st.columns(5, gap="small")
     for j in range(5):
         word = bingo_card[i * 5 + j]
         key = f"cell_{i}_{j}"
