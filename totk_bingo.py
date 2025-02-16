@@ -14,70 +14,57 @@ else:
 random.shuffle(words)
 bingo_card = words[:25]
 
+# Initialize session state for the bingo grid
+if "bingo_grid" not in st.session_state:
+    st.session_state.bingo_grid = [["" for _ in range(5)] for _ in range(5)]
+
+def update_cell(i, j):
+    if st.session_state.bingo_grid[i][j] == "":
+        st.session_state.bingo_grid[i][j] = "X"
+    elif st.session_state.bingo_grid[i][j] == "X":
+        st.session_state.bingo_grid[i][j] = "O"
+    else:
+        st.session_state.bingo_grid[i][j] = ""
+
 # Title
 st.title("Interactive Bingo Game")
 
-# Generate a 5x5 grid using HTML and JavaScript
-html = """
+# Styling to make buttons square
+st.markdown("""
 <style>
-    .bingo-grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 0px;
+    .stButton>button {
         width: 100%;
-        max-width: 500px;
-        margin: auto;
-    }
-    .bingo-cell {
-        width: 100px;
-        height: 100px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        aspect-ratio: 1/1;
         font-size: 16px;
-        font-weight: bold;
         border: 1px solid black;
-        cursor: pointer;
-        user-select: none;
-        position: relative;
+        margin: 0px;
+        padding: 0px;
     }
-    .bingo-cell .x-overlay {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 50px;
-        color: red;
-        font-weight: bold;
-        opacity: 0.7;
+    div[data-testid="column"] {
+        display: flex;
+        justify-content: center;
+        padding: 0px;
     }
 </style>
+""", unsafe_allow_html=True)
 
-<div class="bingo-grid">
-"""
-
-for i, word in enumerate(bingo_card):
-    html += f"<div class='bingo-cell' id='cell{i}' onclick='toggleCell({i})'><span class='word'>{word}</span><span class='x-overlay' style='display:none;'>X</span></div>"
-
-html += """
-</div>
-
-<script>
-    function toggleCell(index) {
-        let cell = document.getElementById('cell' + index);
-        let xOverlay = cell.querySelector('.x-overlay');
-        
-        if (xOverlay.style.display === 'none') {
-            xOverlay.style.display = 'block';
-        } else {
-            xOverlay.style.display = 'none';
-        }
-    }
-</script>
-"""
-
-st.markdown(html, unsafe_allow_html=True)
+# Create a bingo grid using st.container()
+for i in range(5):
+    with st.container():
+        cols = st.columns(5)
+        for j in range(5):
+            word = bingo_card[i * 5 + j]
+            key = f"cell_{i}_{j}"
+            with cols[j]:
+                if st.button(f"{word}\n({st.session_state.bingo_grid[i][j]})", key=key):
+                    update_cell(i, j)
+                    st.experimental_rerun()
 
 # Reset button
+def reset_board():
+    st.session_state.bingo_grid = [["" for _ in range(5)] for _ in range(5)]
+    st.experimental_rerun()
+
+st.markdown("<br>", unsafe_allow_html=True)
 if st.button("Reset Board"):
-    st.rerun()
+    reset_board()
