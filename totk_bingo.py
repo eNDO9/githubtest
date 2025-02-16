@@ -27,7 +27,7 @@ def toggle_cell(i, j):
 # Title
 st.title("Interactive Bingo Game")
 
-# CSS to make buttons perfect squares and dynamically change color
+# CSS to make buttons perfect squares
 st.markdown("""
 <style>
     .bingo-button {
@@ -37,15 +37,18 @@ st.markdown("""
         border-radius: 0px;
         border: 1px solid black;
         font-weight: bold;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
+    }
+    .small-button {
+        width: 20px !important;
+        height: 20px !important;
+        border-radius: 50%;
+        border: 1px solid black;
+        background-color: transparent;
     }
 </style>
 """, unsafe_allow_html=True)
 
-# Create a 5x5 bingo board where the button itself changes color
+# Create a 5x5 bingo board with correct state handling
 for i in range(5):
     cols = st.columns(5)
     for j in range(5):
@@ -54,12 +57,12 @@ for i in range(5):
         button_color = "yellow" if st.session_state.bingo_grid[i][j] else "white"
         
         with cols[j]:
-            if st.button(word, key=key, on_click=toggle_cell, args=(i, j), use_container_width=True):
-                pass
             st.markdown(
-                f'<style>div[data-testid="stButton-{key}"] button {{background-color: {button_color} !important;}}</style>', 
+                f'<button class="bingo-button" style="background-color: {button_color};">{word}</button>',
                 unsafe_allow_html=True
             )
+            if st.button(" ", key=key, on_click=toggle_cell, args=(i, j), use_container_width=False):
+                pass
 
 # Reset button
 def reset_board():
