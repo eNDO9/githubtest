@@ -29,9 +29,17 @@ def update_cell(i, j):
 # Title
 st.title("Interactive Bingo Game")
 
-# Styling to make buttons square
+# Styling to remove gaps and make buttons perfect squares
 st.markdown("""
 <style>
+    .bingo-container {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0px;
+        width: 100%;
+        max-width: 500px;
+        margin: auto;
+    }
     .stButton>button {
         width: 100%;
         aspect-ratio: 1/1;
@@ -40,25 +48,22 @@ st.markdown("""
         margin: 0px;
         padding: 0px;
     }
-    div[data-testid="column"] {
-        display: flex;
-        justify-content: center;
-        padding: 0px;
-    }
 </style>
+<div class='bingo-container'>
 """, unsafe_allow_html=True)
 
-# Create a bingo grid using st.container()
+# Create a bingo grid using st.columns()
 for i in range(5):
-    with st.container():
-        cols = st.columns(5)
-        for j in range(5):
-            word = bingo_card[i * 5 + j]
-            key = f"cell_{i}_{j}"
-            with cols[j]:
-                if st.button(f"{word}\n({st.session_state.bingo_grid[i][j]})", key=key):
-                    update_cell(i, j)
-                    st.experimental_rerun()
+    cols = st.columns(5, gap="small")
+    for j in range(5):
+        word = bingo_card[i * 5 + j]
+        key = f"cell_{i}_{j}"
+        with cols[j]:
+            if st.button(f"{word}\n({st.session_state.bingo_grid[i][j]})", key=key):
+                update_cell(i, j)
+                st.experimental_rerun()
+
+st.markdown("</div>", unsafe_allow_html=True)
 
 # Reset button
 def reset_board():
