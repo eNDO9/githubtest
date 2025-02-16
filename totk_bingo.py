@@ -75,7 +75,7 @@ def toggle_cell(i, j):
     st.session_state.bingo_grid[i][j] = new_state
 
 # Title
-st.title("Interactive Bingo Game")
+st.title("TotK Bingo")
 
 # CSS to make buttons perfect squares
 st.markdown("""
@@ -83,7 +83,7 @@ st.markdown("""
     .bingo-button {
         width: 100px !important;
         height: 100px !important;
-        font-size: 16px;
+        font-size: 15px;
         border-radius: 0px;
         border: 1px solid black;
         font-weight: bold;
