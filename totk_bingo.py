@@ -39,8 +39,8 @@ st.markdown("""
         font-weight: bold;
     }
     .small-button {
-        width: 5px !important;
-        height: 20px !important;
+        width: 50px !important;
+        height: 10px !important;
         border-radius: 5px;
         border: 1px solid black;
         background-color: transparent;
