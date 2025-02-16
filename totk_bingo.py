@@ -39,9 +39,9 @@ st.markdown("""
         font-weight: bold;
     }
     .small-button {
-        width: 20px !important;
+        width: 50px !important;
         height: 20px !important;
-        border-radius: 50%;
+        border-radius: 5px;
         border: 1px solid black;
         background-color: transparent;
     }
