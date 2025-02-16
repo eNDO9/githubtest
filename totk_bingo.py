@@ -14,60 +14,59 @@ else:
 random.shuffle(words)
 bingo_card = words[:25]
 
-# Initialize session state for the bingo grid
-if "bingo_grid" not in st.session_state:
-    st.session_state.bingo_grid = [["" for _ in range(5)] for _ in range(5)]
-
-def update_cell(i, j):
-    if st.session_state.bingo_grid[i][j] == "":
-        st.session_state.bingo_grid[i][j] = "X"
-    elif st.session_state.bingo_grid[i][j] == "X":
-        st.session_state.bingo_grid[i][j] = "O"
-    else:
-        st.session_state.bingo_grid[i][j] = ""
-
 # Title
 st.title("Interactive Bingo Game")
 
-# CSS to make buttons perfect squares and remove gaps
-st.markdown("""
+# Generate a 5x5 grid using HTML and JavaScript
+html = """
 <style>
-    div[data-testid="column"] {
-        display: flex;
-        justify-content: center;
-        padding: 0px !important;
-        margin: 0px !important;
-        flex-grow: 1;
-    }
-    .stButton>button {
+    .bingo-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0px;
         width: 100%;
-        aspect-ratio: 1/1;
+        max-width: 500px;
+        margin: auto;
+    }
+    .bingo-cell {
+        width: 100px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-size: 16px;
-        margin: 0px !important;
-        padding: 0px !important;
-        border-radius: 0px;
+        font-weight: bold;
         border: 1px solid black;
+        cursor: pointer;
+        user-select: none;
     }
 </style>
-""", unsafe_allow_html=True)
 
-for i in range(5):
-    cols = st.columns(5, gap="small")
-    for j in range(5):
-        word = bingo_card[i * 5 + j]
-        key = f"cell_{i}_{j}"
-        with cols[j]:
-            st.button(
-                f"{word}\n({st.session_state.bingo_grid[i][j]})", 
-                key=key, 
-                on_click=update_cell, 
-                args=(i, j)
-            )
+<div class="bingo-grid">
+"""
+
+for i, word in enumerate(bingo_card):
+    html += f"<div class='bingo-cell' id='cell{i}' onclick='toggleCell({i})'>{word}</div>"
+
+html += """
+</div>
+
+<script>
+    function toggleCell(index) {
+        let cell = document.getElementById('cell' + index);
+        if (cell.innerHTML.includes('(X)')) {
+            cell.innerHTML = cell.innerHTML.replace('(X)', '(O)');
+        } else if (cell.innerHTML.includes('(O)')) {
+            cell.innerHTML = cell.innerHTML.replace('(O)', '');
+        } else {
+            cell.innerHTML += ' (X)';
+        }
+    }
+</script>
+"""
+
+st.markdown(html, unsafe_allow_html=True)
 
 # Reset button
-def reset_board():
-    st.session_state.bingo_grid = [["" for _ in range(5)] for _ in range(5)]
-
-st.markdown("<br>", unsafe_allow_html=True)
 if st.button("Reset Board"):
-    reset_board()
+    st.rerun()
