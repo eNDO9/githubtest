@@ -81,7 +81,7 @@ st.markdown("""
     .bingo-button {
         width: 100px !important;
         height: 100px !important;
-        font-size: 16px;
+        font-size: 15px;
         border-radius: 0px;
         border: 1px solid black;
         font-weight: bold;
