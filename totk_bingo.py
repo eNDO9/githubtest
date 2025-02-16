@@ -21,66 +21,85 @@ bingo_card = st.session_state.bingo_card
 if "bingo_grid" not in st.session_state:
     st.session_state.bingo_grid = [["" for _ in range(5)] for _ in range(5)]
 
-def update_cell(i, j):
-    if st.session_state.bingo_grid[i][j] == "":
-        st.session_state.bingo_grid[i][j] = "X"
-    elif st.session_state.bingo_grid[i][j] == "X":
-        st.session_state.bingo_grid[i][j] = "O"
-    else:
-        st.session_state.bingo_grid[i][j] = ""
-
 # Title
 st.title("Interactive Bingo Game")
 
-# Apply light mode styling with proper button color updates
+# CSS + JavaScript for a dynamic, non-resetting grid
 st.markdown("""
 <style>
-    body, .stApp {
+    .bingo-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 5px;
+        width: 100%;
+        max-width: 500px;
+        margin: auto;
+    }
+    .bingo-cell {
+        width: 100px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        font-weight: bold;
+        border: 1px solid black;
+        cursor: pointer;
+        user-select: none;
         background-color: white;
         color: black;
     }
-    div[data-testid="column"] {
-        display: flex;
-        justify-content: center;
-        padding: 0px !important;
-        margin: 0px !important;
-        flex-grow: 1;
+    .bingo-cell.x-mark {
+        background-color: red;
+        color: white;
     }
-    .stButton>button {
-        width: 100%;
-        aspect-ratio: 1/1;
-        font-size: 16px;
-        margin: 0px !important;
-        padding: 0px !important;
-        border-radius: 0px;
-        border: 1px solid black;
+    .bingo-cell.o-mark {
+        background-color: blue;
+        color: white;
     }
 </style>
-""", unsafe_allow_html=True)
+
+<div class="bingo-grid">
+"""
+)
 
 for i in range(5):
-    cols = st.columns(5, gap="small")
     for j in range(5):
         word = bingo_card[i * 5 + j]
-        key = f"cell_{i}_{j}"
-        button_color = "white"  # Default light mode button
+        cell_id = f"cell-{i}-{j}"
+        mark_class = ""
         if st.session_state.bingo_grid[i][j] == "X":
-            button_color = "red"
+            mark_class = "x-mark"
         elif st.session_state.bingo_grid[i][j] == "O":
-            button_color = "blue"
+            mark_class = "o-mark"
         
-        with cols[j]:
-            button = st.markdown(
-                f"""
-                <button id='{key}' style='width:100%; height:100px; background-color:{button_color}; color:black; font-size:16px; border:1px solid black;' onclick='fetch("/{key}")'>
-                    {word}
-                </button>
-                """, unsafe_allow_html=True
-            )
+        st.markdown(
+            f'<div id="{cell_id}" class="bingo-cell {mark_class}" onclick="toggleMark('{cell_id}')">{word}</div>',
+            unsafe_allow_html=True
+        )
+
+st.markdown("""
+</div>
+
+<script>
+    function toggleMark(cellId) {
+        let cell = document.getElementById(cellId);
+        if (cell.classList.contains("x-mark")) {
+            cell.classList.remove("x-mark");
+            cell.classList.add("o-mark");
+        } else if (cell.classList.contains("o-mark")) {
+            cell.classList.remove("o-mark");
+        } else {
+            cell.classList.add("x-mark");
+        }
+    }
+</script>
+""", unsafe_allow_html=True)
 
 # Reset button
 def reset_board():
     st.session_state.bingo_grid = [["" for _ in range(5)] for _ in range(5)]
+    st.rerun()
 
 st.markdown("<br>", unsafe_allow_html=True)
 if st.button("Reset Board"):
