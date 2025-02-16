@@ -73,7 +73,7 @@ def toggle_cell(i, j):
     st.session_state.bingo_grid[i][j] = new_state
 
 # Title
-st.title("Interactive Bingo Game")
+st.title("TotK Bingo")
 
 # CSS to make buttons perfect squares
 st.markdown("""
