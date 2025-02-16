@@ -14,7 +14,7 @@ else:
         "Take pictures of 10 different monsters", "Take pictures of 20 different monsters", 
         "Defeat an enemy using only Zonai tech", "Increase hearts", "Catch 5 different fish", "Catch 10 different fish", 
         "Defeat an enemy while on horseback", "Defeat 5 enemies while on horseback", "Defeat 10 enemies while on horseback", 
-        "Build a motorcycle", "Build a car", "Find a sages will", "Break five weapons", "Break 10 weapons", "Free!", 
+        "Build a motorcycle", "Build a car", "Find a sages will", "Break five weapons", "Break 10 weapons",
         "Defeat a Boss Bokoblin parade", "Ride a dragon", "Clear an enemy camp naked", "Defeat a Lynel", "Defeat 3 Lynels", 
         "Complete a Colosseum", "Complete 3 Colosseums", "Cook a pizza", "Cook an omelette", "Get arrested in Gerudo town", 
         "Reunite a Korok with its friend", "Reunite 3 Koroks with their friends", "Register a horse", "Ride a non-horse", 
