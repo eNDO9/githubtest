@@ -2,18 +2,62 @@ import streamlit as st
 import random
 import os
 
-# Load words from challenges.txt
+# Load challenges from challenges.txt
 file_path = "challenges.txt"
 if os.path.exists(file_path):
     with open(file_path, "r") as file:
-        words = [line.strip() for line in file.readlines()]
+        all_challenges = [line.strip() for line in file.readlines()]
 else:
-    words = [f"Word {i+1}" for i in range(50)]  # Fallback if file is missing
+    all_challenges = [
+        "Fight the Yiga clan", "Defeat a Molduga", "Get a matching outfit", "Fix a sign for Sign Guy", 
+        "Complete 4 Shrines", "Complete 8 Shrines", "Complete 12 Shrines", 
+        "Take pictures of 10 different monsters", "Take pictures of 20 different monsters", 
+        "Defeat an enemy using only Zonai tech", "Increase hearts", "Catch 5 different fish", "Catch 10 different fish", 
+        "Defeat an enemy while on horseback", "Defeat 5 enemies while on horseback", "Defeat 10 enemies while on horseback", 
+        "Build a motorcycle", "Build a car", "Find a sages will", "Break five weapons", "Break 10 weapons", "Free!", 
+        "Defeat a Boss Bokoblin parade", "Ride a dragon", "Clear an enemy camp naked", "Defeat a Lynel", "Defeat 3 Lynels", 
+        "Complete a Colosseum", "Complete 3 Colosseums", "Cook a pizza", "Cook an omelette", "Get arrested in Gerudo town", 
+        "Reunite a Korok with its friend", "Reunite 3 Koroks with their friends", "Register a horse", "Ride a non-horse", 
+        "Increase stamina", "Upgrade 3 clothing items", "Find 4 lightroots", "Find 8 lightroots", "Discover 3 towers", "Discover 5 towers", 
+        "Complete 4 sky shrines", "Collect an entire item set", "Give Beedle a beetle", "Bake a Bread", "Cook a Monster Meal", 
+        "Defeat the hands", "Defeat a hinox", "Defeat 3 hinoxes", "Defeat a flux construct", "Defeat a Frox", "Experience low gravity", 
+        "Fix 15 signs", "Defeat Kohga 2 Times", "Take a photo of a defeated lynel", "Send a korok to space", "Create 3 unique elixirs"
+    ]
+
+# Define categories for similar challenges to prevent duplicates based on numbers
+categories = {
+    "Shrines": ["Complete 4 Shrines", "Complete 8 Shrines", "Complete 12 Shrines"],
+    "Pictures": ["Take pictures of 10 different monsters", "Take pictures of 20 different monsters"],
+    "Horseback Defeats": ["Defeat an enemy while on horseback", "Defeat 5 enemies while on horseback", "Defeat 10 enemies while on horseback"],
+    "Breaking Weapons": ["Break five weapons", "Break 10 weapons"],
+    "Lightroots": ["Find 4 lightroots", "Find 8 lightroots"],
+    "Towers": ["Discover 3 towers", "Discover 5 towers"],
+    "Colosseums": ["Complete a Colosseum", "Complete 3 Colosseums"],
+    "Reunite Koroks": ["Reunite a Korok with its friend", "Reunite 3 Koroks with their friends"],
+    "Fish": ["Catch 5 different fish", "Catch 10 different fish"],
+    "Lynels": ["Defeat a Lynel", "Defeat 3 Lynels"],
+    "Hinoxes": ["Defeat a hinox", "Defeat 3 hinoxes"]
+}
+
+# Select one challenge per category
+selected_challenges = []
+for category in categories.values():
+    selected_challenges.append(random.choice(category))
+
+# Get remaining unique challenges
+remaining_challenges = list(set(all_challenges) - set(sum(categories.values(), [])))
+random.shuffle(remaining_challenges)
+
+# Fill up to 25 slots
+while len(selected_challenges) < 25:
+    selected_challenges.append(remaining_challenges.pop())
+
+# Shuffle the final board
+random.shuffle(selected_challenges)
 
 # Ensure the board stays consistent across interactions
 if "bingo_card" not in st.session_state:
-    random.shuffle(words)
-    st.session_state.bingo_card = words[:25]
+    st.session_state.bingo_card = selected_challenges
 
 bingo_card = st.session_state.bingo_card
 bingo_card[12] = "Free Space"  # Set center square
@@ -21,7 +65,7 @@ bingo_card[12] = "Free Space"  # Set center square
 # Initialize session state for the bingo grid
 if "bingo_grid" not in st.session_state:
     st.session_state.bingo_grid = [[False for _ in range(5)] for _ in range(5)]
-st.session_state.bingo_grid[2][2] = True  # Set center square as lit up
+    st.session_state.bingo_grid[2][2] = True  # Set center square as lit up
 
 def toggle_cell(i, j):
     st.session_state.bingo_grid[i][j] = not st.session_state.bingo_grid[i][j]
@@ -69,6 +113,7 @@ for i in range(5):
 # Reset button
 def reset_board():
     st.session_state.bingo_grid = [[False for _ in range(5)] for _ in range(5)]
+    st.session_state.bingo_grid[2][2] = True  # Keep Free Space lit up
     st.rerun()
 
 st.markdown("<br>", unsafe_allow_html=True)
