@@ -32,9 +32,13 @@ def update_cell(i, j):
 # Title
 st.title("Interactive Bingo Game")
 
-# CSS to make buttons perfect squares and remove gaps, and add colors
+# Apply dark mode styling
 st.markdown("""
 <style>
+    body, .stApp {
+        background-color: #121212;
+        color: white;
+    }
     div[data-testid="column"] {
         display: flex;
         justify-content: center;
@@ -49,7 +53,15 @@ st.markdown("""
         margin: 0px !important;
         padding: 0px !important;
         border-radius: 0px;
-        border: 1px solid black;
+        border: 1px solid white;
+    }
+    .x-mark {
+        background-color: red !important;
+        color: white !important;
+    }
+    .o-mark {
+        background-color: blue !important;
+        color: white !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -59,24 +71,22 @@ for i in range(5):
     for j in range(5):
         word = bingo_card[i * 5 + j]
         key = f"cell_{i}_{j}"
-        button_color = "" if st.session_state.bingo_grid[i][j] == "" else ("#FF9999" if st.session_state.bingo_grid[i][j] == "X" else "#9999FF")
+        button_class = ""
+        if st.session_state.bingo_grid[i][j] == "X":
+            button_class = "x-mark"
+        elif st.session_state.bingo_grid[i][j] == "O":
+            button_class = "o-mark"
+        
         with cols[j]:
-            if st.button(
-                f"{word}", 
-                key=key, 
-                on_click=update_cell, 
-                args=(i, j),
-            ):
+            if st.button(word, key=key, on_click=update_cell, args=(i, j)):
                 pass
-            st.markdown(
-                f"""
+            st.markdown(f"""
                 <style>
                 div[data-testid="stButton"]:has(button#{key}) button {{
-                    background-color: {button_color} !important;
+                    background-color: {"red" if st.session_state.bingo_grid[i][j] == "X" else ("blue" if st.session_state.bingo_grid[i][j] == "O" else "#333")} !important;
                 }}
                 </style>
-                """, unsafe_allow_html=True
-            )
+            """, unsafe_allow_html=True)
 
 # Reset button
 def reset_board():
