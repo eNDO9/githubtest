@@ -70,12 +70,13 @@ for i in range(5):
             button_color = "blue"
         
         with cols[j]:
-            if st.button(word, key=key, on_click=update_cell, args=(i, j), use_container_width=True):
-                pass
+            btn = st.button(word, key=key, on_click=update_cell, args=(i, j), use_container_width=True)
+            if btn:
+                st.session_state.bingo_grid[i][j] = "X" if st.session_state.bingo_grid[i][j] == "" else ("O" if st.session_state.bingo_grid[i][j] == "X" else "")
             st.markdown(
                 f"""
                 <style>
-                div[data-testid="stButton"]:has(button[data-testid='{key}']) button {{
+                div[data-testid="stButton"]:nth-of-type({i * 5 + j + 1}) button {{
                     background-color: {button_color} !important;
                     color: white !important;
                 }}
