@@ -65,7 +65,6 @@ bingo_card = st.session_state.bingo_card
 # Initialize session state for the bingo grid
 if "bingo_grid" not in st.session_state:
     st.session_state.bingo_grid = [[0 for _ in range(5)] for _ in range(5)]
-    st.session_state.bingo_grid[2][2] = 1  # Set center square as lit up
 
 def toggle_cell(i, j):
     current_state = st.session_state.bingo_grid[i][j]
