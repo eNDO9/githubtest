@@ -1,50 +1,58 @@
-Apple
-Breeze
-Candle
-Dragon
-Echo
-Falcon
-Glacier
-Horizon
-Ivy
-Jigsaw
-Kettle
-Lantern
-Meadow
-Nectar
-Orbit
-Prism
-Quiver
-Ripple
-Scepter
-Tundra
-Umbrella
-Velvet
-Whistle
-Xylophone
-Yonder
-Zephyr
-Acorn
-Blossom
-Chimney
-Dandelion
-Ember
-Fossil
-Galaxy
-Harbor
-Icicle
-Jasmine
-Kernel
-Lullaby
-Mirth
-Nestle
-Oasis
-Petal
-Quirk
-Rustic
-Starlit
-Tranquil
-Universe
-Vortex
-Wistful
-Zenith
+Fight the Yiga clan
+Defeat a Molduga
+Get a matching outfit
+Fix a sign for Sign Guy
+Complete 4 Shrines
+Complete 8 Shrines
+Complete 12 Shrines
+Take pictures of 10 different monsters
+Take pictures of 20 different monsters
+Defeat an enemy using only Zonai tech
+Increase hearts
+Catch 5 different fish
+Catch 10 different fish
+Defeat an enemy while on horseback
+Defeat 5 enemies while on horseback
+Defeat 10 enemies while on horseback
+Build a motorcycle
+Build a car
+Find a sages will
+Break five weapons
+Break 10 weapons
+Free!
+Defeat a Boss Bokoblin parade
+Ride a dragon
+Clear an enemy camp naked
+Defeat a Lynel
+Defeat 3 Lynels
+Complete a Colosseum
+Complete 3 Colosseums
+Cook a pizza
+Cook an omelette
+Get arrested in Gerudo town
+Reunite a Korok with its friend
+Reunite 3 Koroks with their friends
+Register a horse
+Ride a non-horse
+Increase stamina
+Upgrade 3 clothing items
+Find 4 lightroots
+Find 8 lightroots
+Discover 3 towers
+Discover 5 towers
+Complete 4 sky shrines
+Collect an entire item set
+Give Beedle a beetle
+Bake a Bread
+Cook a Monster Meal
+Defeat the hands
+Defeat a hinox
+Defeat 3 hinoxes
+Defeat a flux construct
+Defeat a Frox
+Experience low gravity
+Fix 15 signs
+Defeat Kohga 2 Times
+Take a photo of a defeated lynel
+Send a korok to space
+Create 3 unique elixirs
