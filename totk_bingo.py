@@ -10,9 +10,12 @@ if os.path.exists(file_path):
 else:
     words = [f"Word {i+1}" for i in range(50)]  # Fallback if file is missing
 
-# Shuffle and select 25 words for the bingo card
-random.shuffle(words)
-bingo_card = words[:25]
+# Ensure the board stays consistent across interactions
+if "bingo_card" not in st.session_state:
+    random.shuffle(words)
+    st.session_state.bingo_card = words[:25]
+
+bingo_card = st.session_state.bingo_card
 
 # Initialize session state for the bingo grid
 if "bingo_grid" not in st.session_state:
@@ -58,6 +61,13 @@ for i in range(5):
         key = f"cell_{i}_{j}"
         button_color = "" if st.session_state.bingo_grid[i][j] == "" else ("#FF9999" if st.session_state.bingo_grid[i][j] == "X" else "#9999FF")
         with cols[j]:
+            if st.button(
+                f"{word}", 
+                key=key, 
+                on_click=update_cell, 
+                args=(i, j),
+            ):
+                pass
             st.markdown(
                 f"""
                 <style>
@@ -66,12 +76,6 @@ for i in range(5):
                 }}
                 </style>
                 """, unsafe_allow_html=True
-            )
-            st.button(
-                f"{word}", 
-                key=key, 
-                on_click=update_cell, 
-                args=(i, j)
             )
 
 # Reset button
