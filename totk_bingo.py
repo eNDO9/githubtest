@@ -64,14 +64,16 @@ bingo_card[12] = "Free Space"  # Set center square
 
 # Initialize session state for the bingo grid
 if "bingo_grid" not in st.session_state:
-    st.session_state.bingo_grid = [[False for _ in range(5)] for _ in range(5)]
-    st.session_state.bingo_grid[2][2] = True  # Set center square as lit up
+    st.session_state.bingo_grid = [[0 for _ in range(5)] for _ in range(5)]
+    st.session_state.bingo_grid[2][2] = 1  # Set center square as lit up
 
 def toggle_cell(i, j):
-    st.session_state.bingo_grid[i][j] = not st.session_state.bingo_grid[i][j]
+    current_state = st.session_state.bingo_grid[i][j]
+    new_state = (current_state + 1) % 4  # Cycle through 0, 1, 2, 3
+    st.session_state.bingo_grid[i][j] = new_state
 
 # Title
-st.title("TotK Bingo")
+st.title("Interactive Bingo Game")
 
 # CSS to make buttons perfect squares
 st.markdown("""
@@ -79,7 +81,7 @@ st.markdown("""
     .bingo-button {
         width: 100px !important;
         height: 100px !important;
-        font-size: 14px;
+        font-size: 16px;
         border-radius: 0px;
         border: 1px solid black;
         font-weight: bold;
@@ -100,7 +102,8 @@ for i in range(5):
     for j in range(5):
         word = bingo_card[i * 5 + j]
         key = f"cell_{i}_{j}"
-        button_color = "green" if st.session_state.bingo_grid[i][j] else "white"
+        button_color_map = {0: "white", 1: "green", 2: "red", 3: "purple"}
+        button_color = button_color_map[st.session_state.bingo_grid[i][j]]
         
         with cols[j]:
             st.markdown(
