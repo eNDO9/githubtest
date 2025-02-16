@@ -29,7 +29,7 @@ def update_cell(i, j):
 # Title
 st.title("Interactive Bingo Game")
 
-# CSS to make buttons perfect squares and remove gaps
+# CSS to make buttons perfect squares and remove gaps, also styling for colors
 st.markdown("""
 <style>
     div[data-testid="column"] {
@@ -48,6 +48,14 @@ st.markdown("""
         border-radius: 0px;
         border: 1px solid black;
     }
+    .x-mark {
+        background-color: red !important;
+        color: white !important;
+    }
+    .o-mark {
+        background-color: blue !important;
+        color: white !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -56,13 +64,18 @@ for i in range(5):
     for j in range(5):
         word = bingo_card[i * 5 + j]
         key = f"cell_{i}_{j}"
+        button_label = word  # Default label
+        button_class = ""
+
+        if st.session_state.bingo_grid[i][j] == "X":
+            button_class = "x-mark"
+        elif st.session_state.bingo_grid[i][j] == "O":
+            button_class = "o-mark"
+
         with cols[j]:
-            st.button(
-                f"{word}\n({st.session_state.bingo_grid[i][j]})", 
-                key=key, 
-                on_click=update_cell, 
-                args=(i, j)
-            )
+            if st.button(button_label, key=key, on_click=update_cell, args=(i, j), help="Click to toggle X/O", use_container_width=True):
+                pass
+            st.markdown(f"<script>document.getElementById('{key}').classList.add('{button_class}');</script>", unsafe_allow_html=True)
 
 # Reset button
 def reset_board():
