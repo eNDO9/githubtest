@@ -74,7 +74,7 @@ for i in range(5):
             mark_class = "o-mark"
         
         st.markdown(
-            f'<div id="{cell_id}" class="bingo-cell {mark_class}" onclick="toggleMark('{cell_id}')">{word}</div>',
+            f'<div id="{cell_id}" class="bingo-cell {mark_class}" onclick="toggleMark(\'{cell_id}\')">{word}</div>',
             unsafe_allow_html=True
         )
 
