@@ -12,7 +12,7 @@ else:
         "Conquer Yiga base", "Clear out Lurelin Village", "Complete Home on Arange", "Defeat a Molduga", "Get a matching outfit", "Fix a sign for Sign Guy", 
         "Complete 4 Shrines", "Complete 8 Shrines", "Complete 12 Shrines", "Find a hidden treasure map & item", "Cook with golden apple",
         "Take pictures of 10 different monsters", "Take pictures of 20 different monsters", "Clear monster camp naked", "Discover 2 hot springs",
-        "Defeat an enemy using only Zonai tech", "Increase hearts", "Catch 5 different fish", "Catch 10 different fish", "Acquire weapon with at least 70 attack power",
+        "Defeat an enemy using only Zonai tech", "Increase hearts", "Catch 5 different fish", "Catch 10 different fish", "Get weapon with 70 or more power",
         "Defeat an enemy while on horseback", "Defeat 5 enemies while on horseback", "Defeat 10 enemies while on horseback", 
         "Build a motorcycle", "Build a car", "Find a sages will", "Break five weapons", "Break 10 weapons",
         "Defeat a Boss Bokoblin parade", "Ride a dragon", "Clear an enemy camp naked", "Defeat a Lynel", "Defeat 3 Lynels", 
