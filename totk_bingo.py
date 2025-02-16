@@ -30,7 +30,7 @@ def update_cell(i, j):
 # Title
 st.title("Interactive Bingo Game")
 
-# CSS to make buttons perfect squares and change colors
+# CSS to make buttons perfect squares and fully change colors
 st.markdown("""
 <style>
     div[data-testid="column"] {
@@ -40,7 +40,7 @@ st.markdown("""
         margin: 0px !important;
         flex-grow: 1;
     }
-    .stButton>button {
+    .bingo-button {
         width: 100%;
         aspect-ratio: 1/1;
         font-size: 16px;
@@ -48,6 +48,10 @@ st.markdown("""
         padding: 0px !important;
         border-radius: 0px;
         border: 1px solid black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
     }
     .highlight-button {
         background-color: yellow !important;
@@ -61,14 +65,14 @@ for i in range(5):
     for j in range(5):
         word = bingo_card[i * 5 + j]
         key = f"cell_{i}_{j}"
-        button_color_class = ""
+        button_class = "bingo-button"
         if st.session_state.bingo_grid[i][j] == "X":
-            button_color_class = "highlight-button"
+            button_class += " highlight-button"
         
         with cols[j]:
-            st.markdown(f'<style>div[data-testid="stButton-{key}"] button {{background-color: {"yellow" if button_color_class == "highlight-button" else "white"} !important;}}</style>', unsafe_allow_html=True)
-            if st.button(word, key=key, on_click=update_cell, args=(i, j)):
+            if st.button(word, key=key, on_click=update_cell, args=(i, j), help="Click to toggle", use_container_width=True):
                 pass
+            st.markdown(f'<style>div[data-testid="stButton-{key}"] button {{background-color: {"yellow" if st.session_state.bingo_grid[i][j] == "X" else "white"} !important;}}</style>', unsafe_allow_html=True)
 
 # Reset button
 def reset_board():
